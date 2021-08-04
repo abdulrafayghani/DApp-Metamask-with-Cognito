@@ -34,6 +34,7 @@ module.exports.handler = async (event: any) => {
 
       console.log('identityId', identityId);
       console.log('token', token);
+      console.log(signature)
 
       const { Credentials: credentials } = await getCredentials(
         identityId,
@@ -90,6 +91,8 @@ const validateSig = async (address: any, signature: any, nonce: any) => {
   const message = `Welcome message, nonce: ${nonce}`;
   const hash = web3.utils.sha3(message);
   const signing_address = await web3.eth.accounts.recover(hash, signature);
+  console.log("signing_address", signing_address.toLowerCase())
+  console.log("signing_address",address.toLowerCase())
   return signing_address.toLowerCase() === address.toLowerCase();
 };
 
